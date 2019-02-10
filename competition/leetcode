@@ -1,0 +1,22 @@
+class Solution:
+    def isMatch(self, s, p):
+        si = pi = 0
+        ssi = spi = None  # '*' indexes        
+        sl, pl = len(s), len(p)
+        while si < sl:
+            if pi < pl and p[pi] == '*':
+                ssi, spi = si, pi
+                pi += 1                
+            elif pi < pl and (p[pi] == s[si] or p[pi] == '?'):
+                si, pi = si+1, pi+1
+            elif spi is not None:
+                si, pi = ssi+1, spi+1
+                ssi += 1                
+            else:
+                return False
+            
+        while pi < pl and p[pi] == '*':
+            pi += 1
+
+        return pi == pl
+   
